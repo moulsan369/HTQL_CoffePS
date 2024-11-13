@@ -65,7 +65,7 @@
             <div class="list-nav-item">
               <div class="nav-item"></div>
               <div class="nav-item">
-                <h6>Tụi em chưa có làm hi</h6>
+                <h6>Chưa update thông tin/h6>
               </div>
               <div class="nav-item"></div>
               <div class="nav-item"></div>
