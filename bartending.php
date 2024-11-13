@@ -3,12 +3,12 @@
 $server="localhost";
 $username="root";
 $password="";
-$db="taobang";
+$db="htqlcp_nhom05";
 
 $data=new mysqli($server,$username,$password,$db);
 
 $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
-FROM donorder a join ctdonorder b on a.MaDon=b.MaDon
+FROM donorder a join ct_dondatnuoc b on a.MaDon=b.MaDon
 WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
 GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
@@ -30,7 +30,7 @@ if(isset($_POST["done"])){
  
 }
 $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
-FROM donorder a join ctdonorder b on a.MaDon=b.MaDon
+FROM donorder a join ct_dondatnuoc b on a.MaDon=b.MaDon
 WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
 GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
@@ -163,14 +163,14 @@ $result_display=$data->query($display);
     <div class="detail">
     <?php
       $ma_upd="SELECT SoBan,TenDoUong,Soluong, GhiChu, LinkAnh
-      from donorder a join ctdonorder b on a.MaDon=b.MaDon 
+      from donorder a join ct_dondatnuoc b on a.MaDon=b.MaDon 
       join danhmucdouong c on b.MaDoUong=c.MaDoUong
       where a.MaDon =(SELECT MaDon from donorder where TrangThai='Đang pha chế' LIMIT 1)";
 
       $result_ma_upd=$data->query($ma_upd);
 
       $ban_upd="SELECT SoBan
-      from donorder a join ctdonorder b on a.MaDon=b.MaDon 
+      from donorder a join ct_dondatnuoc b on a.MaDon=b.MaDon 
       join danhmucdouong c on b.MaDoUong=c.MaDoUong
       where a.MaDon =(SELECT MaDon from donorder where TrangThai='Đang pha chế' LIMIT 1)";
       
