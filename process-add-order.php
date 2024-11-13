@@ -1,10 +1,10 @@
 <?php
 session_start();
 require 'connect.php';
-$sqlCountOrder = "SELECT * FROM dondatnuoc ORDER BY MADON DESC LIMIT 1";
+$sqlCountOrder = "SELECT * FROM dondatnuoc ORDER BY MaDon DESC LIMIT 1";
 $result = mysqli_query($connect,$sqlCountOrder);
 $numOrder = mysqli_fetch_assoc($result);
-preg_match('/\d+/', $numOrder['MADON'], $numbersArray);
+preg_match('/\d+/', $numOrder['MaDon'], $numbersArray);
 $number = $numbersArray[0];
 $number++;
 $ORD_ID = "D".sprintf("%04d",$number);

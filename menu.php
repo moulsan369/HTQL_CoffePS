@@ -90,7 +90,7 @@
             $result = mysqli_query($connect, $sql);
             ?>
             <?php foreach ($result as $each): ?>
-            <a href="process-add-to-order.php?MADOUONG=<?php echo $each['MADOUONG']?>">
+            <a href="process-add-to-order.php?MaDoUong=<?php echo $each['MaDoUong']?>">
                 <div class="menu">
                     <img
                             class="menu-image"
@@ -121,19 +121,19 @@
             <div class="order">
 
                 <?php if ($check === true) {} else { ?>
-                <?php foreach ($order as $MADOUONG => $each): ?>
+                <?php foreach ($order as $MaDoUong => $each): ?>
               <div class="order-detail">
-                  <span class="ma-do-uong" style="display: none"><?php echo $each['MADOUONG']?></span>
+                  <span class="ma-do-uong" style="display: none"><?php echo $each['MaDoUong']?></span>
                 <div class="order-item">
                   <img
                     class="order-image"
                     src="assets/images/images/<?php echo $each['LinkAnh']?>"
                   />
-                  <h6 class="order-name"><?php echo $each['TenDoUong']?></h6>
+                  <h6 class="order-name"><?php echo isset($each['TenDoUong']) ? $each['TenDoUong'] : 'Tên không xác định'; ?></h6>
                   <div class="order-quantity">
-                      <a href="process-increase-item-order.php?action=incre&id=<?php echo $each['MADOUONG']?>"><button class="order-quantity-button">+</button></a>
-                    <h6 class="quantity-text"><?php echo $_SESSION['order'][$MADOUONG]['SOLUONG']?></h6>
-                      <a href="process-decrease-item-order.php?action=decre&id=<?php echo $each['MADOUONG']?>"><button class="order-quantity-button">-</button></a>
+                      <a href="process-increase-item-order.php?action=incre&id=<?php echo $each['MaDoUong']?>"><button class="order-quantity-button">+</button></a>
+                      <h6 class="quantity-text"><?php echo isset($_SESSION['order'][$MaDoUong]['SoLuong']) ? $_SESSION['order'][$MaDoUong]['SoLuong'] : 0; ?></h6>
+                      <a href="process-decrease-item-order.php?action=decre&id=<?php echo $each['MaDoUong']?>"><button class="order-quantity-button">-</button></a>
                   </div>
                 </div>
                 <div class="order-note-rm">

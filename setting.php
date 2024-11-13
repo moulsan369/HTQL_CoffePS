@@ -65,7 +65,7 @@
             <div class="list-nav-item">
               <div class="nav-item"></div>
               <div class="nav-item">
-                <h6>Chưa update thông tin/h6>
+                <h6>Chưa có trong phiên bản học này!</h6>
               </div>
               <div class="nav-item"></div>
               <div class="nav-item"></div>

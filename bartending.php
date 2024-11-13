@@ -7,32 +7,32 @@ $db="htqlcp_nhom05";
 
 $data=new mysqli($server,$username,$password,$db);
 
-$display="SELECT a.MADON,SOBAN,THOIGIANDAT,SUM(SOLUONG) as Tongsl,TRANGTHAI 
-FROM dondatnuoc a join ct_dondatnuoc b on a.MADON=b.MADON
-WHERE TRANGTHAI='Chưa pha chế' or TRANGTHAI='Đang pha chế'
-GROUP BY a.MADON,SOBAN,THOIGIANDAT,TRANGTHAI";
+$display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
+FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
+GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
 
 
 if(isset($_POST["agree"])){
-  $update_pre="UPDATE dondatnuoc SET TRANGTHAI='Đang pha chế'
-  where MADON=(SELECT MADON from dondatnuoc where TRANGTHAI='Chưa pha chế' LIMIT 1)";
+  $update_pre="UPDATE dondatnuoc SET TrangThai='Đang pha chế'
+  where MaDon=(SELECT MaDon from dondatnuoc where TrangThai='Chưa pha chế' LIMIT 1)";
   $result_upd_pre=$data->query($update_pre); 
   
 }
 unset($_POST["agree"]);
 
 if(isset($_POST["done"])){
-  $update_done="UPDATE dondatnuoc SET TRANGTHAI='Hoàn thành'
-  where MADON=(SELECT MADON from dondatnuoc where TRANGTHAI='Đang pha chế' LIMIT 1)";
+  $update_done="UPDATE dondatnuoc SET TrangThai='Hoàn thành'
+  where MaDon=(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
  
   $result_upd_done=$data->query($update_done);
  
 }
-$display="SELECT a.MADON,SOBAN,THOIGIANDAT,SUM(SOLUONG) as Tongsl,TRANGTHAI 
-FROM dondatnuoc a join ct_dondatnuoc b on a.MADON=b.MADON
-WHERE TRANGTHAI='Chưa pha chế' or TRANGTHAI='Đang pha chế'
-GROUP BY a.MADON,SOBAN,THOIGIANDAT,TRANGTHAI";
+$display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
+FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
+GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
 ?>
 <!DOCTYPE html>
@@ -142,11 +142,11 @@ $result_display=$data->query($display);
                     if($result_display->num_rows>0){
                       while($row=$result_display->fetch_assoc()){
                         echo "<tr>";
-                        echo "<td class='border-radius-left'>".$row["SOBAN"]."</td>";
-                        echo "<td>".$row["THOIGIANDAT"]."</td>";
+                        echo "<td class='border-radius-left'>".$row["SoBan"]."</td>";
+                        echo "<td>".$row["ThoiGianOrder"]."</td>";
                         echo "<td>".$row["Tongsl"]."</td>";
                         echo "<td class='border-radius-right center-column'>
-                              <div class='status-box unprepared'>".$row["TRANGTHAI"].
+                              <div class='status-box unprepared'>".$row["TrangThai"].
                 
                            "</div>
                        </td>";
@@ -162,17 +162,17 @@ $result_display=$data->query($display);
     </div>
     <div class="detail">
     <?php
-      $ma_upd="SELECT SOBAN,TenDoUong,SOLUONG, GhiChu, LinkAnh
-      from dondatnuoc a join ct_dondatnuoc b on a.MADON=b.MADON 
-      join danhmucdouong c on b.MaDoUong=c.MaDoUong
-      where a.MADON =(SELECT MADON from dondatnuoc where TRANGTHAI='Đang pha chế' LIMIT 1)";
+      $ma_upd="SELECT SoBan,TenDoUong,Soluong, GhiChu, LinkAnh
+      from dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon 
+      join douong c on b.MaDoUong=c.MaDoUong
+      where a.MaDon =(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
 
       $result_ma_upd=$data->query($ma_upd);
 
-      $ban_upd="SELECT SOBAN
-      from dondatnuoc a join ct_dondatnuoc b on a.MADON=b.MADON 
-      join danhmucdouong c on b.MaDoUong=c.MaDoUong
-      where a.MADON =(SELECT MADON from dondatnuoc where TRANGTHAI='Đang pha chế' LIMIT 1)";
+      $ban_upd="SELECT SoBan
+      from dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon 
+      join douong c on b.MaDoUong=c.MaDoUong
+      where a.MaDon =(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
       
       $result_ban_upd=$data->query($ban_upd);
 
@@ -183,7 +183,7 @@ $result_display=$data->query($display);
           echo "<div class='navbar detail-header-navbar'>";
             echo "<div class=list-nav-item'>";
               echo "<div class='nav-item detail-navbar nav-choosing'>";
-                echo "<h6>Bàn" .$row0["SOBAN"].
+                echo "<h6>Bàn" .$row0["SoBan"].
                 "</h6>";
               echo "</div>";
             echo  "</div>";
@@ -204,7 +204,7 @@ $result_display=$data->query($display);
                     echo "<img class='order-image' src='assets/images/images/".$row1["LinkAnh"]."'>";
                     echo "<h6 class='order-name'>".$row1["TenDoUong"]."</h6>";
                     echo "<div class='order-quantity'>";
-                      echo "<h6 class='quantity-text'>x".$row1["SOLUONG"]."</h6>";
+                      echo "<h6 class='quantity-text'>x".$row1["Soluong"]."</h6>";
                     echo "</div>";
                   echo "</div>";
                   echo "<div class='order-note-rm'>";

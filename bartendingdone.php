@@ -7,10 +7,10 @@
   
   $data=new mysqli($server,$username,$password,$db);
 
-    $display="SELECT a.MADON,SOBAN,THOIGIANDAT,SUM(SOLUONG) as Tongsl,TRANGTHAI 
-    FROM donorder a join ct_dondatnuoc b on a.MADON=b.MADON
-    WHERE TRANGTHAI='Hoàn thành'
-    GROUP BY a.MADON,SOBAN,THOIGIANDAT,TRANGTHAI";
+    $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
+    FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+    WHERE TrangThai='Hoàn thành'
+    GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
     $result_display=$data->query($display);
    
 ?>
@@ -99,11 +99,11 @@
                   if($result_display->num_rows>0){
                     while($row=$result_display->fetch_assoc()){
                       echo "<tr>";
-                      echo "<td class='border-radius-left'>".$row["SOBAN"]."</td>";
-                      echo "<td>".$row["THOIGIANDAT"]."</td>";
+                      echo "<td class='border-radius-left'>".$row["SoBan"]."</td>";
+                      echo "<td>".$row["ThoiGianOrder"]."</td>";
                       echo "<td>".$row["Tongsl"]."</td>";
                       echo "<td class='border-radius-right center-column'>
-                            <div class='status-box done'>".$row["TRANGTHAI"].
+                            <div class='status-box done'>".$row["TrangThai"].
               
                          "</div>
                      </td>";

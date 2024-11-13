@@ -1,17 +1,17 @@
 <?php
-$maDoUong = $_GET['MADOUONG'];
+$maDoUong = $_GET['MaDoUong'];
 session_start();
 if (empty($_SESSION['order'][$maDoUong])) {
     require './connect.php';
-    $sql = "SELECT * FROM `danhmucdouong` WHERE MaDoUong = '$maDoUong'";
+    $sql = "SELECT * FROM `douong` WHERE MaDoUong = '$maDoUong'";
     $result = mysqli_query($connect, $sql);
     $each = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    $_SESSION['order'][$maDoUong]['MADOUONG'] = $maDoUong;
-    $_SESSION['order'][$maDoUong]['TENDOUONG'] = $each['TENDOUONG'];
-    $_SESSION['order'][$maDoUong]['DONGIA'] = $each['DONGIA'];
+    $_SESSION['order'][$maDoUong]['MaDoUong'] = $maDoUong;
+    $_SESSION['order'][$maDoUong]['TenDoUong'] = $each['TenDoUong'];
+    $_SESSION['order'][$maDoUong]['DonGia'] = $each['DonGia'];
     $_SESSION['order'][$maDoUong]['LinkAnh'] = $each['LinkAnh'];
-    $_SESSION['order'][$maDoUong]['SOLUONG'] = 1;
+    $_SESSION['order'][$maDoUong]['SoLuong'] = 1;
 }else {
-    $_SESSION['order'][$maDoUong]['SOLUONG']++;
+    $_SESSION['order'][$maDoUong]['SoLuong']++;
 }
 header("location:menu.php");
