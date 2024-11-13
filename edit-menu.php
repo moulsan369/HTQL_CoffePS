@@ -23,11 +23,11 @@
 
 // kết nối CSDL
   include("connect.php");
-  $connect = mysqli_connect('localhost','root','','taobang');
+  $connect = mysqli_connect('localhost','root','','htqlcp_nhom05');
   mysqli_set_charset($connect,'utf8');
 
   // truy vấn đồ uống
-  $strTruyvan = "SELECT * FROM danhmucdouong";   
+  $strTruyvan = "SELECT * FROM douong";   
   $resurlt = mysqli_query($connect,$strTruyvan);
 
   // thêm đồ uống
@@ -45,7 +45,7 @@
     move_uploaded_file($LinkAnh['tmp_name'], $target_file);
 
     // nếu id không điền thì hãy để tự động tăng, database đã tạo rồi nên id ở đây sẽ được tạo bằng code
-    $layid = "SELECT count(*) FROM danhmucdouong";
+    $layid = "SELECT count(*) FROM douong";
     $kqlayid = mysqli_query($connect, $layid);
     if ($kqlayid) {
         $cotid = mysqli_fetch_array($kqlayid, MYSQLI_ASSOC);
@@ -86,7 +86,7 @@
       move_uploaded_file($LinkAnh['tmp_name'], $target_file);
     }
     else{
-      $sqlanh = "SELECT LinkAnh FROM danhmucdouong WHERE MaDoUong = '$id'";
+      $sqlanh = "SELECT LinkAnh FROM douong WHERE MADOUONG = '$id'";
       $LinkAnh = mysqli_query($connect, $sqlanh);
       $row = mysqli_fetch_assoc($LinkAnh);
       $tenLinkAnh = $row['LinkAnh'];
@@ -108,8 +108,8 @@
     }   
   }
 
-  function xoaDoUong($MaDoUong, $connect) {
-    $sql = "DELETE FROM `danhmucdouong` WHERE `MaDoUong` = '$MaDoUong'";
+  function xoaDoUong($MADOUONG, $connect) {
+    $sql = "DELETE FROM `douong` WHERE `MADOUONG` = '$MADOUONG'";
     $tb = mysqli_query($connect, $sql);
     if ($tb) {
       return true;
@@ -118,16 +118,16 @@
     }
   }
 
-  function createDoUong($MaDoUong, $TenDoUong, $DonGia, $LinkAnh, $connect){
-    $sql = "INSERT INTO `danhmucdouong`(`MaDoUong`, `TenDoUong`, `DonGia`,`LinkAnh`) VALUES ('$MaDoUong','$TenDoUong','$DonGia','$LinkAnh')";
+  function createDoUong($MADOUONG, $TENDOUONG, $DONGIA, $LinkAnh, $connect){
+    $sql = "INSERT INTO `douong`(`MADOUONG`, `TENDOUONG`, `DONGIA`,`LinkAnh`) VALUES ('$MADOUONG','$TENDOUONG','$DONGIA','$LinkAnh')";
     $tb  = mysqli_query($connect,$sql);
     return true;
   }
 
-  function editDoUong($MaDoUong, $TenDoUong, $DonGia, $LinkAnh, $connect){
-    $sql = "UPDATE `danhmucdouong`
-      SET `TenDoUong` = '$TenDoUong', `DonGia`= '$DonGia', `LinkAnh`='$LinkAnh'
-      WHERE `MaDoUong` = '$MaDoUong'";
+  function editDoUong($MADOUONG, $TENDOUONG, $DONGIA, $LinkAnh, $connect){
+    $sql = "UPDATE `douong`
+      SET `TENDOUONG` = '$TENDOUONG', `DONGIA`= '$DONGIA', `LinkAnh`='$LinkAnh'
+      WHERE `MADOUONG` = '$MADOUONG'";
     $tb  = mysqli_query($connect,$sql);
     return true;
   }
@@ -201,15 +201,15 @@
               <span class="edit-menu"><i><img src="assets/images/icon/edit-icon.png" /></i></span>
               <!-- không được xóa bằng javascript -->
               <span class="remove-menu-1">
-              <button type="submit" name="delete" style="position: absolute; top: 8px; left: 2px; width: 2px; height: 2px; background : none; border : none" value="<?php echo $row['MaDoUong'] ?>">
+              <button type="submit" name="delete" style="position: absolute; top: 8px; left: 2px; width: 2px; height: 2px; background : none; border : none" value="<?php echo $row['MADOUONG'] ?>">
                   <img src="assets/images/icon/icon_trash_w.png" />
                 </button>
               </span>
 
               <img class="menu-image" src="assets/images/images/<?php echo $row['LinkAnh'] ?>"/>
-              <h6 class="menu-name"><?php echo $row['TenDoUong'] ?></h6>
-              <h6 class="menu-price"><?php echo $row['DonGia'] ?></h6>
-              <h6 class="menu-id" style="display:none"><?php echo $row['MaDoUong']?></h6>
+              <h6 class="menu-name"><?php echo $row['TENDOUONG'] ?></h6>
+              <h6 class="menu-price"><?php echo $row['DONGIA'] ?></h6>
+              <h6 class="menu-id" style="display:none"><?php echo $row['MADOUONG']?></h6>
             </div>
             </form>
           <?php }?>
