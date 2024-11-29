@@ -67,19 +67,19 @@
           <div class="table">
             <h2 class="table-name">2</h2>
           </div>
-          <div class="table ordered">
+          <div class="table">
             <h2 class="table-name">3</h2>
           </div>
           <div class="table">
             <h2 class="table-name">4</h2>
           </div>
-          <div class="table ordered">
+          <div class="table">
             <h2 class="table-name">5</h2>
           </div>
           <div class="table">
             <h2 class="table-name">6</h2>
           </div>
-          <div class="table ordered">
+          <div class="table">
             <h2 class="table-name">7</h2>
           </div>
           <div class="table">
@@ -91,23 +91,11 @@
           <div class="table">
             <h2 class="table-name">10</h2>
           </div>
-          <div class="table ordered">
+          <div class="table">
             <h2 class="table-name">11</h2>
           </div>
           <div class="table">
             <h2 class="table-name">12</h2>
-          </div>
-          <div class="table">
-            <h2 class="table-name">13</h2>
-          </div>
-          <div class="table">
-            <h2 class="table-name">14</h2>
-          </div>
-          <div class="table ordered">
-            <h2 class="table-name">15</h2>
-          </div>
-          <div class="table">
-            <h2 class="table-name">16</h2>
           </div>
         </div>
       </div>
