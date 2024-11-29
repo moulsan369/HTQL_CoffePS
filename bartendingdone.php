@@ -3,12 +3,12 @@
   $server="localhost";
   $username="root";
   $password="";
-  $db="htqlcp_nhom05";
+  $db="taobang";
   
   $data=new mysqli($server,$username,$password,$db);
 
     $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
-    FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+    FROM donorder a join ctdonorder b on a.MaDon=b.MaDon
     WHERE TrangThai='Hoàn thành'
     GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
     $result_display=$data->query($display);

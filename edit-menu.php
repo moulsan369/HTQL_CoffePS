@@ -23,11 +23,11 @@
 
 // kết nối CSDL
   include("connect.php");
-  $connect = mysqli_connect('localhost','root','','htqlcp_nhom05');
+  $connect = mysqli_connect('localhost','root','','taobang');
   mysqli_set_charset($connect,'utf8');
 
   // truy vấn đồ uống
-  $strTruyvan = "SELECT * FROM douong";   
+  $strTruyvan = "SELECT * FROM danhmucdouong";   
   $resurlt = mysqli_query($connect,$strTruyvan);
 
   // thêm đồ uống
@@ -45,7 +45,7 @@
     move_uploaded_file($LinkAnh['tmp_name'], $target_file);
 
     // nếu id không điền thì hãy để tự động tăng, database đã tạo rồi nên id ở đây sẽ được tạo bằng code
-    $layid = "SELECT count(*) FROM douong";
+    $layid = "SELECT count(*) FROM danhmucdouong";
     $kqlayid = mysqli_query($connect, $layid);
     if ($kqlayid) {
         $cotid = mysqli_fetch_array($kqlayid, MYSQLI_ASSOC);
@@ -86,7 +86,7 @@
       move_uploaded_file($LinkAnh['tmp_name'], $target_file);
     }
     else{
-      $sqlanh = "SELECT LinkAnh FROM douong WHERE MaDoUong = '$id'";
+      $sqlanh = "SELECT LinkAnh FROM danhmucdouong WHERE MaDoUong = '$id'";
       $LinkAnh = mysqli_query($connect, $sqlanh);
       $row = mysqli_fetch_assoc($LinkAnh);
       $tenLinkAnh = $row['LinkAnh'];
@@ -109,7 +109,7 @@
   }
 
   function xoaDoUong($MaDoUong, $connect) {
-    $sql = "DELETE FROM `douong` WHERE `MaDoUong` = '$MaDoUong'";
+    $sql = "DELETE FROM `danhmucdouong` WHERE `MaDoUong` = '$MaDoUong'";
     $tb = mysqli_query($connect, $sql);
     if ($tb) {
       return true;
@@ -119,13 +119,13 @@
   }
 
   function createDoUong($MaDoUong, $TenDoUong, $DonGia, $LinkAnh, $connect){
-    $sql = "INSERT INTO `douong`(`MaDoUong`, `TenDoUong`, `DonGia`,`LinkAnh`) VALUES ('$MaDoUong','$TenDoUong','$DonGia','$LinkAnh')";
+    $sql = "INSERT INTO `danhmucdouong`(`MaDoUong`, `TenDoUong`, `DonGia`,`LinkAnh`) VALUES ('$MaDoUong','$TenDoUong','$DonGia','$LinkAnh')";
     $tb  = mysqli_query($connect,$sql);
     return true;
   }
 
   function editDoUong($MaDoUong, $TenDoUong, $DonGia, $LinkAnh, $connect){
-    $sql = "UPDATE `douong`
+    $sql = "UPDATE `danhmucdouong`
       SET `TenDoUong` = '$TenDoUong', `DonGia`= '$DonGia', `LinkAnh`='$LinkAnh'
       WHERE `MaDoUong` = '$MaDoUong'";
     $tb  = mysqli_query($connect,$sql);
@@ -178,15 +178,6 @@
           <div class="list-nav-item">
             <div class="nav-item nav-choosing">
               <h6>Coffee</h6>
-            </div>
-            <div class="nav-item">
-              <h6>Trà</h6>
-            </div>
-            <div class="nav-item">
-              <h6>Trà sữa</h6>
-            </div>
-            <div class="nav-item">
-              <h6>Khác</h6>
             </div>
           </div>
         </div>

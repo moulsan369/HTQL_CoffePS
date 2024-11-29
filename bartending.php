@@ -3,34 +3,34 @@
 $server="localhost";
 $username="root";
 $password="";
-$db="htqlcp_nhom05";
+$db="taobang";
 
 $data=new mysqli($server,$username,$password,$db);
 
 $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
-FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+FROM donorder a join ctdonorder b on a.MaDon=b.MaDon
 WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
 GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
 
 
 if(isset($_POST["agree"])){
-  $update_pre="UPDATE dondatnuoc SET TrangThai='Đang pha chế'
-  where MaDon=(SELECT MaDon from dondatnuoc where TrangThai='Chưa pha chế' LIMIT 1)";
+  $update_pre="UPDATE donorder SET TrangThai='Đang pha chế'
+  where MaDon=(SELECT MaDon from donorder where TrangThai='Chưa pha chế' LIMIT 1)";
   $result_upd_pre=$data->query($update_pre); 
   
 }
 unset($_POST["agree"]);
 
 if(isset($_POST["done"])){
-  $update_done="UPDATE dondatnuoc SET TrangThai='Hoàn thành'
-  where MaDon=(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
+  $update_done="UPDATE donorder SET TrangThai='Hoàn thành'
+  where MaDon=(SELECT MaDon from donorder where TrangThai='Đang pha chế' LIMIT 1)";
  
   $result_upd_done=$data->query($update_done);
  
 }
 $display="SELECT a.MaDon,SoBan,ThoiGianOrder,SUM(Soluong) as Tongsl,TrangThai 
-FROM dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon
+FROM donorder a join ctdonorder b on a.MaDon=b.MaDon
 WHERE TrangThai='Chưa pha chế' or TrangThai='Đang pha chế'
 GROUP BY a.MaDon,SoBan,ThoiGianOrder,TrangThai";
 $result_display=$data->query($display);
@@ -163,16 +163,16 @@ $result_display=$data->query($display);
     <div class="detail">
     <?php
       $ma_upd="SELECT SoBan,TenDoUong,Soluong, GhiChu, LinkAnh
-      from dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon 
-      join douong c on b.MaDoUong=c.MaDoUong
-      where a.MaDon =(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
+      from donorder a join ctdonorder b on a.MaDon=b.MaDon 
+      join danhmucdouong c on b.MaDoUong=c.MaDoUong
+      where a.MaDon =(SELECT MaDon from donorder where TrangThai='Đang pha chế' LIMIT 1)";
 
       $result_ma_upd=$data->query($ma_upd);
 
       $ban_upd="SELECT SoBan
-      from dondatnuoc a join ct_dondatnuoc b on a.MaDon=b.MaDon 
-      join douong c on b.MaDoUong=c.MaDoUong
-      where a.MaDon =(SELECT MaDon from dondatnuoc where TrangThai='Đang pha chế' LIMIT 1)";
+      from donorder a join ctdonorder b on a.MaDon=b.MaDon 
+      join danhmucdouong c on b.MaDoUong=c.MaDoUong
+      where a.MaDon =(SELECT MaDon from donorder where TrangThai='Đang pha chế' LIMIT 1)";
       
       $result_ban_upd=$data->query($ban_upd);
 

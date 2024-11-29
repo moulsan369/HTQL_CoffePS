@@ -1,29 +1,17 @@
 <?php
-require './connect.php';
-
-// Lấy mã đồ uống từ GET
-$MaDoUong = $_GET['MaDoUong'];
-
-// Kiểm tra nếu món đã tồn tại trong đơn hàng, tăng số lượng nếu có
-if (empty($_POST['orderItems'][$MaDoUong])) {
-    $sql = "SELECT * FROM `douong` WHERE MaDoUong = '$MaDoUong'";
+$maDoUong = $_GET['MaDoUong'];
+session_start();
+if (empty($_SESSION['order'][$maDoUong])) {
+    require './connect.php';
+    $sql = "SELECT * FROM `danhmucdouong` WHERE MaDoUong = '$maDoUong'";
     $result = mysqli_query($connect, $sql);
-    $each = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-    // Thêm đồ uống mới vào danh sách đơn hàng
-    $_POST['orderItems'][$MaDoUong] = [
-        'MaDoUong' => $MaDoUong,
-        'TenDoUong' => $each['TenDoUong'],
-        'DonGia' => $each['DonGia'],
-        'LinkAnh' => $each['LinkAnh'],
-        'SoLuong' => 1
-    ];
-} else {
-    // Nếu đồ uống đã tồn tại trong đơn hàng, tăng số lượng
-    $_POST['orderItems'][$MaDoUong]['SoLuong']++;
+    $each = mysqli_fetch_array($result,MYSQLI_ASSOC);
+    $_SESSION['order'][$maDoUong]['MaDoUong'] = $maDoUong;
+    $_SESSION['order'][$maDoUong]['TenDoUong'] = $each['TenDoUong'];
+    $_SESSION['order'][$maDoUong]['DonGia'] = $each['DonGia'];
+    $_SESSION['order'][$maDoUong]['LinkAnh'] = $each['LinkAnh'];
+    $_SESSION['order'][$maDoUong]['SoLuong'] = 1;
+}else {
+    $_SESSION['order'][$maDoUong]['SoLuong']++;
 }
-
-// Trả người dùng về trang menu sau khi cập nhật
 header("location:menu.php");
-exit;
-?>
